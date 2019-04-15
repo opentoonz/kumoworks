@@ -1,0 +1,27 @@
+Debug
+Debug64
+Release
+Release64
+GeneratedFiles
+.vs
+*.opensdf
+*.sdf
+*.suo
+*.user
+build*
+Thumbs.db
+*.pkg
+
+.clang_complete
+Debug/
+Debug Library/
+Release/
+Release Library/
+ipch/
+.idea
+
+# qtcreator files
+*.config
+*.creator
+*.files
+*.includes

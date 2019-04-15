@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+      <file>Resources/drawmode.svg</file>
+      <file>Resources/prevmode.svg</file>
+      <file>Resources/render.svg</file>
+      <file>Resources/addcloud.svg</file>
+      <file>Resources/eraser.png</file>
+      <file>Resources/eye.svg</file>
+      <file>Resources/eye_off.svg</file>
+      <file>Resources/plus.svg</file>
+      <file>Resources/minus.svg</file>
+      <file>Resources/question.svg</file>
+      <file>Resources/kumoworks_logo.svg</file>
+    </qresource>
+</RCC>
