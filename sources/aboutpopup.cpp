@@ -16,6 +16,11 @@ AboutPopup::AboutPopup(QWidget* parent, Qt::WindowFlags f)
     : QDialog(parent, f) {
   setFixedSize(458, 500);
   setWindowTitle(tr("About %1").arg(qApp->applicationName()));
+  
+  // remove "?" button
+  Qt::WindowFlags wf = windowFlags();
+  wf &= ~Qt::WindowContextHelpButtonHint;
+  setWindowFlags(wf);
 
   QString softwareStr =
       qApp->applicationName() + "  Version " + qApp->applicationVersion();
