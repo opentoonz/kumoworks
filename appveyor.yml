@@ -1,0 +1,35 @@
+version: 1.0.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+image: Visual Studio 2015
+configuration:
+- Debug
+- Release
+platform: x64
+clone_depth: 1
+# C:\Qt\5.9 is mapped to C:\Qt\5.9.n for backward compatibility
+install:
+- cmd: >-
+    mkdir %PLATFORM% && cd %PLATFORM%
+
+    cmake ..\sources -G "Visual Studio 14 2015 Win64" -DQTDIR="C:\Qt\5.9\msvc2015_64"
+build:
+  project: $(APPVEYOR_BUILD_FOLDER)\$(PLATFORM)\ALL_BUILD.vcxproj
+  parallel: true
+  verbosity: minimal
+after_build:
+- cmd: >-
+    C:\Qt\5.9\msvc2015_64\bin\windeployqt.exe %CONFIGURATION%\KumoWorks.exe
+
+    mkdir %CONFIGURATION%\config
+    
+    xcopy /Y /E /I ..\sources\loc %CONFIGURATION%\config\loc
+    
+    xcopy /Y /E /I ..\misc\ini %CONFIGURATION%\config\ini
+    
+    xcopy /Y /E /I ..\misc\licenses %CONFIGURATION%\config\licenses    
+artifacts:
+- path: $(PLATFORM)\$(CONFIGURATION)
+  name: KumoWorks
+  
