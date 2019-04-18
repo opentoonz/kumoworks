@@ -3,6 +3,7 @@
 # KumoWorks
 
 [![](https://ci.appveyor.com/api/projects/status/cyvjfcbmwf69fr7i?svg=true)](https://ci.appveyor.com/project/opentoonz/kumoworks)
+[![](https://travis-ci.org/opentoonz/kumoworks.svg?branch=master)](https://travis-ci.org/opentoonz/kumoworks)
 
 ## What is KumoWorks?
 KumoWorks is a cloud rendering tool for animation production.
