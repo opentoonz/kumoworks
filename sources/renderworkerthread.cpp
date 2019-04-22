@@ -34,9 +34,9 @@ void RenderWorkerThread::run() {
 
   QSize sceneSize = p->getSceneSize();
 
-  auto getOutPath = [&](int cId = -1) -> QString {
+  auto getOutPath = [&](QString layerName = QString()) -> QString {
     QString ret = folder + "/" + fileName;
-    if (cId >= 0) ret += "-" + QString::number(cId + 1);
+    if (!layerName.isEmpty()) ret += "-" + layerName;
     ret += ".png";
     return ret;
   };
@@ -134,6 +134,9 @@ void RenderWorkerThread::run() {
   bool ret       = true;
   int cId        = 0;
   int currentCId = MyParams::instance()->getCurrentCloudIndex();
+
+  QList<QString> savedNames;
+
   for (Cloud* refCloud : p->getClouds()) {
     // in case of rendering the current cloud only Œ»İ‚Ì‰_‚Ì‚İo—Í‚Ìê‡
     if (target == CurrentCloudOnly && cId != currentCId) {
@@ -188,9 +191,27 @@ void RenderWorkerThread::run() {
     }
 
     // save the image ‰æ‘œ‚ğ•Û‘¶
-    ret = ret && img.save(getOutPath(cId), "PNG", 100);
+
+    // obtain layer name to be put in the file name
+    QString layerName = refCloud->getName();
+    if (savedNames.contains(layerName)) {
+      int suffix = 1;
+      while (1) {
+        QString tmpName = layerName + QString("-%1").arg(suffix);
+        if (!savedNames.contains(tmpName)) {
+          // cloud layer name to be put in the file name with suffix
+          layerName = tmpName;
+          break;
+        }
+        suffix++;
+      }
+    }
+
+    ret = ret && img.save(getOutPath(layerName), "PNG", 100);
 
     emit cloudRendered();
+    cId++;
+    savedNames.append(layerName);
   }
 
   // save the sky image separately •Ê“r‹ó‰æ‘œ‚ğo—Í
