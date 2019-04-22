@@ -27,6 +27,7 @@
 using namespace PathUtils;
 
 MyToolBar::MyToolBar(QWidget* parent) : QToolBar(tr("Tool bar"), parent) {
+  setObjectName("MyToolBar");  // for MainWindow::saveState()
   setFocusPolicy(Qt::NoFocus);
 
   QToolButton* menuBtn = new QToolButton(this);
@@ -38,7 +39,7 @@ MyToolBar::MyToolBar(QWidget* parent) : QToolBar(tr("Tool bar"), parent) {
 
   QToolButton* helpBtn = new QToolButton(this);
   QMenu* helpMenu      = new QMenu();
-  QAction* about       = new QAction(tr("About %1").arg(qApp->applicationName()));
+  QAction* about = new QAction(tr("About %1").arg(qApp->applicationName()));
 
   QToolButton* renderBtn   = new QToolButton(this);
   QPushButton* drawModeBtn = new QPushButton(tr("Draw"), this);
@@ -303,9 +304,9 @@ void MyToolBar::onLanguageTriggered(QAction* langAction) {
 
   // open warning popup
   if (oldLang != langAction->data().toString())
-    QMessageBox::warning(
-        this, tr("Warning"),
-        tr("Language will be changed after restarting %1.").arg(qApp->applicationName()));
+    QMessageBox::warning(this, tr("Warning"),
+                         tr("Language will be changed after restarting %1.")
+                             .arg(qApp->applicationName()));
 }
 
 void MyToolBar::onAboutTriggered() {
