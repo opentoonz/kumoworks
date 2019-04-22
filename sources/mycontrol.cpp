@@ -169,7 +169,7 @@ void MyPathLabel::setPath(const QString path) {
 void MyImgPathLabel::onLoadButtonClicked() {
   QString path = QFileDialog::getOpenFileName(
       this, tr("Select File"), m_path, tr("Images (*.png *.jpg *.tif *.tga)"));
-
+  if (path.isEmpty()) return;
   if (!QFileInfo(path).isReadable()) {
     QMessageBox::warning(this, tr("Warning"),
                          tr("The file %1 is not readable.").arg(path));
@@ -194,7 +194,7 @@ void MyDirPathLabel::onLoadButtonClicked() {
   QString initialPath = (m_path.isEmpty()) ? QDir::currentPath() : m_path;
   QString path = QFileDialog::getExistingDirectory(this, tr("Select Directory"),
                                                    initialPath);
-
+  if (path.isEmpty()) return;
   m_path = path;
   m_pathLabel->setText(m_path);
 }
