@@ -83,6 +83,9 @@ void MainWindow::keyPressEvent(QKeyEvent* e) {
     // std::cout << "return pressed" << std::endl;
     m_viewer->onEnterPressed();
     break;
+  case Qt::Key_Enter:
+    m_viewer->onEnterPressed();
+    break;
   case Qt::Key_Escape:
     // std::cout << "escape pressed" << std::endl;
     MyParams::instance()->getCurrentCloud()->suspendRender();
