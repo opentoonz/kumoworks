@@ -30,4 +30,4 @@ Configuration INI files (such as presets and default settings) will be saved in 
 [Modified BSD license](./LICENSE.txt).
 
 ## Acknowledgement
-The software had been developped receiving helpful advices and feedback from Takumi Tanji, an animation background artist / art director.
+The software had been developed receiving helpful advices and feedback from Takumi Tanji, an animation background artist / art director.
