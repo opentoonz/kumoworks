@@ -12,7 +12,8 @@ install:
   - mkdir build && cd build
 
 script: 
-  - cmake ../sources/ -DQTDIR=/usr/local/Cellar/qt/5.12.2/
+  - QTVERSION=`ls /usr/local/Cellar/qt`
+  - cmake ../sources/ -DQTDIR=/usr/local/Cellar/qt/$QTVERSION/
   - make -j 2
 
 matrix:
