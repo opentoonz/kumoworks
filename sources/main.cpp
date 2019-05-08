@@ -17,7 +17,7 @@ using namespace PathUtils;
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   a.setApplicationName("KumoWorks");
-  a.setApplicationVersion("1.0");
+  a.setApplicationVersion("1.0.1");
 
   std::cout << "path = " << QDir::currentPath().toStdString() << std::endl;
 
