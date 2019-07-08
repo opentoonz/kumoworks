@@ -4,19 +4,38 @@ git:
   depth: 1
   
 sudo: required
+dist: trusty
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install qt; fi
+  - |
+    if [ "$TRAVIS_OS_NAME" == "osx" ]; then 
+      brew install qt
+    else
+      sudo add-apt-repository --yes ppa:beineri/opt-qt597-trusty
+      sudo apt-get update
+      sudo apt-get install -y qt59svg qt59tools
+    fi
 
 install:
   - mkdir build && cd build
 
 script: 
-  - QTVERSION=`ls /usr/local/Cellar/qt`
-  - cmake ../sources/ -DQTDIR=/usr/local/Cellar/qt/$QTVERSION/
+  - |
+    if [ "$TRAVIS_OS_NAME" == "osx" ]; then 
+      QTVERSION=`ls /usr/local/Cellar/qt`
+      cmake ../sources/ -DQTDIR=/usr/local/Cellar/qt/$QTVERSION/
+    else
+      source /opt/qt59/bin/qt59-env.sh
+      cmake ../sources
+    fi
   - make -j 2
 
 matrix:
     include:
+        - os: linux
+          compiler: gcc
+          cache: ccache
+        - os: linux
+          compiler: clang
         - os: osx
           osx_image: xcode9.4
