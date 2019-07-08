@@ -31,7 +31,7 @@ set(HEADERS
     simplexnoise.h
     myflowmanager.h
     pathutils.h
-    randomnumbergenerator.h
+    RandomNumberGenerator.h
     sky.h
     volume.h
 )
@@ -61,15 +61,19 @@ set(SOURCES
 #-----------------------------------------------------------------------------
 # Select build environment
 set(BUILD_ENV_MSVC     OFF)
+set(BUILD_ENV_LINUX    OFF)
 set(BUILD_ENV_APPLE    OFF)
 if(MSVC)
     set(BUILD_ENV_MSVC ON)
     message(STATUS "Build environment is MSVC")
+elseif(UNIX AND NOT APPLE)
+    set(BUILD_ENV_LINUX ON)
+    message(STATUS "Build environment is LINUX")
 elseif(CMAKE_HOST_APPLE)
     set(BUILD_ENV_APPLE ON)
     message(STATUS "Build environment is APPLE")
 else()
-    message(ERROR "Unsupported build environment, only MSVC and APPLE are supported")
+    message(ERROR "Unsupported build environment, only MSVC, APPLE, and LINUX are supported")
 endif()
 #-----------------------------------------------------------------------------
 
@@ -131,8 +135,11 @@ set_target_properties("translation_KumoWorks" PROPERTIES
 # 生成する実行ファイルを追加する
 if(BUILD_ENV_MSVC)
     add_executable(${PROJECT_NAME} WIN32 ${HEADERS} ${SOURCES} ${RESOURCES})
-else()
+elseif(BUILD_ENV_APPLE)
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${HEADERS} ${SOURCES} ${RESOURCES})
+else()
+    add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES} ${RESOURCES})
+    install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}" DESTINATION "/usr/local/bin/")
 endif()
 
 # link Qt library. Core and Gui will be linked accordingly

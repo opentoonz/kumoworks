@@ -21,10 +21,12 @@ More detailed instruction is to be prepared later.
 Configuration INI files (such as presets and default settings) will be saved in the following folders:
 - On Windows: `C:/Users/USER_NAME/AppData/Local/KumoWorks/`
 - On macOS: `/Users/USER_NAME/Library/Preferences/KumoWorks/`
+- On Linux: `/home/USER_NAME/.config/`
 
 ## How to Build Locally
 - [On Windows](./misc/how_to_build_win.md) 
 - [On macOS](./misc/how_to_build_macos.md)
+- [On Linux](./misc/how_to_build_linux.md)
 
 ## Licensing
 [Modified BSD license](./LICENSE.txt).
