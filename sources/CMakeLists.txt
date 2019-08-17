@@ -108,6 +108,10 @@ qt5_wrap_cpp(SOURCES ${MOC_HEADERS})
 set(QRC_FILE KumoWorks_resources.qrc)
 qt5_add_resources(RESOURCES ${QRC_FILE})
 
+if(BUILD_ENV_MSVC)
+    set(RC_FILE KumoWorks.rc)
+endif()
+
 # generate Qt translations and messages
 set(LANGUAGES ja)
 # 翻訳対象のファイルを設定する。
@@ -134,9 +138,11 @@ set_target_properties("translation_KumoWorks" PROPERTIES
 
 # 生成する実行ファイルを追加する
 if(BUILD_ENV_MSVC)
-    add_executable(${PROJECT_NAME} WIN32 ${HEADERS} ${SOURCES} ${RESOURCES})
+    add_executable(${PROJECT_NAME} WIN32 ${HEADERS} ${SOURCES} ${RESOURCES} ${RC_FILE})
 elseif(BUILD_ENV_APPLE)
-    add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${HEADERS} ${SOURCES} ${RESOURCES})
+    set(MACOSX_BUNDLE_ICON_FILE "KumoWorks.icns")
+    set_source_files_properties(KumoWorks.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    add_executable(${PROJECT_NAME} MACOSX_BUNDLE KumoWorks.icns ${HEADERS} ${SOURCES} ${RESOURCES})
 else()
     add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES} ${RESOURCES})
     install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}" DESTINATION "/usr/local/bin/")
