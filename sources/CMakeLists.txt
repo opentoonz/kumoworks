@@ -113,7 +113,7 @@ if(BUILD_ENV_MSVC)
 endif()
 
 # generate Qt translations and messages
-set(LANGUAGES ja)
+set(LANGUAGES ja ru)
 # 翻訳対象のファイルを設定する。
 SET(TRANSLATION_TARGET_FILES
     ${HEADERS}
