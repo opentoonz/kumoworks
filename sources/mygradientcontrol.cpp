@@ -15,7 +15,7 @@
 #include <QDir>
 #include <QSettings>
 #include <QPixmap>
-#include <QPainter>
+#include <QPainterPath>
 #include <QIcon>
 #include <QComboBox>
 #include <QMessageBox>
