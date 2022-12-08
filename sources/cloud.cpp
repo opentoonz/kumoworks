@@ -146,10 +146,14 @@ float do_distance_transform(float* dst_p, QSize dim) {
 bool isInRange(int x, int min, int max) { return (x >= min) && (x < max); }
 
 Real schlickScatteringAngle(Real theta, Real k = 0.6) {
-  Real nume   = 1.0 - k * k;  // nume = 0.64
-  Real v      = 1 + k * cos(theta);
-  Real denomi = 4.0 * M_PI * v * v;
-  return nume / denomi;
+  auto func = [&](Real t) {
+    Real nume = 1.0 - k * k;  // nume = 0.64
+    Real v = 1 + k * cos(t);
+    Real denomi = 4.0 * M_PI * v * v;
+    return nume / denomi;
+  };
+  // interpolating the forward and backward scattering.
+  return 0.8 * func(theta) + 0.2 * func(theta + M_PI_2);
 }
 
 #ifdef DO_TIMER
