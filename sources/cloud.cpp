@@ -760,7 +760,7 @@ bool Cloud::silhouette2Voxel() {
     for (int y = 0; y < bbox.height(); y++) {
       QRgb* rgb_p = (QRgb*)canvasImg.scanLine(y);
       for (int x = 0; x < bbox.width(); x++, rgb_p++, depth_p++) {
-        if (qAlpha(*rgb_p) == 0)
+        if (qAlpha(*rgb_p) == 0 || x == 0 || x == bbox.width()-1)
           *depth_p = 0.0f;
         else
           *depth_p = INF;
